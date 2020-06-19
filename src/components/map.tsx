@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
+import axios from "axios";
 
 type MapProps = {
   center: any;
@@ -16,6 +17,14 @@ export default class Map extends Component<MapProps> {
     },
     zoom: 11,
   };
+
+  componentDidMount() {
+    axios.get("http://api.open-notify.org/iss-now.json").then((res) => {
+      console.log(res);
+      //this.setState
+      debugger;
+    });
+  }
 
   render() {
     const { center, zoom } = this.props;
