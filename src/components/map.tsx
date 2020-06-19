@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import { GlobalStateContext } from "./../lib/GlobalContext";
+import ISSPosition from "./ISSPosition";
 
 type MapProps = {
   center: any;
@@ -11,8 +12,6 @@ interface latLng {
   lat: number;
   lng: number;
 }
-
-const AnyReactComponent = ({ text }: any) => <div>{text}</div>;
 
 export default class Map extends Component<MapProps> {
   renderPolylines(map, maps) {
@@ -60,17 +59,8 @@ export default class Map extends Component<MapProps> {
                 this.renderPolylines(map, maps)
               }
             >
-              <AnyReactComponent
-                lat={59.955413}
-                lng={30.337844}
-                text="My Marker"
-              />
-
-              <AnyReactComponent
-                lat={59.965563}
-                lng={30.337844}
-                text="My Marker"
-              />
+              <ISSPosition key={"dsf"} lat={59.955413} lng={30.337844} />
+              <ISSPosition key={"dsf2"} lat={59.965563} lng={30.337844} />
             </GoogleMapReact>
           </div>
         )}
