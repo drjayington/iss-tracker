@@ -9,8 +9,8 @@ function App() {
       <div className="App">
         <Map
           center={{
-            lat: 79.95,
-            lng: 50.33,
+            lat: 59.95,
+            lng: 30.33,
           }}
           zoom={11}
         ></Map>
