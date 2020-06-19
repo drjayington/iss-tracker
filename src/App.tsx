@@ -1,12 +1,21 @@
 import React from "react";
 import "./App.css";
 import Map from "./components/map";
+import GlobalStateContextProvider from "./lib/GlobalContext";
 
 function App() {
   return (
-    <div className="App">
-      <Map></Map>
-    </div>
+    <GlobalStateContextProvider>
+      <div className="App">
+        <Map
+          center={{
+            lat: 79.95,
+            lng: 50.33,
+          }}
+          zoom={11}
+        ></Map>
+      </div>
+    </GlobalStateContextProvider>
   );
 }
 
