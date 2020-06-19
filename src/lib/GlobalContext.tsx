@@ -11,7 +11,6 @@ export interface IGlobalState {
     };
     zoom: number;
   };
-  startTracking: () => void;
 }
 
 /* provides global application state */
@@ -35,23 +34,35 @@ export default class GlobalStateContextProvider extends Component<
         },
         zoom: 11,
       },
-      startTracking: this.startTracking,
     };
+
+    this.startTracking();
   }
 
-  private startTracking() {
+  private async startTracking() {
     if (!this.transportService) {
       this.transportService = new TransportService();
     }
 
-    this.transportService.pollData(
-      this._issTrackerApi,
-      (json: any) => {},
-      this._pollingInterval
-    );
+    try {
+      const json = await this.transportService.getData(this._issTrackerApi);
+      this.updateTrackingData(json);
+
+      this.transportService.pollData(
+        this._issTrackerApi,
+        (json: any) => {
+          this.updateTrackingData(json);
+        },
+        this._pollingInterval
+      );
+    } catch {
+      alert("Error getting ISS tracking data");
+    }
   }
 
-  private updateTrackingData(json: any) {}
+  private updateTrackingData(json: any) {
+    console.warn(json);
+  }
 
   render() {
     return (

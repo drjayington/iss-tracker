@@ -2,7 +2,7 @@ import React from "react";
 import Map from "./components/map";
 import GlobalStateContextProvider from "./lib/GlobalContext";
 
-function App() {
+export default function App() {
   return (
     <GlobalStateContextProvider>
       <div className="App">
@@ -17,5 +17,3 @@ function App() {
     </GlobalStateContextProvider>
   );
 }
-
-export default App;
