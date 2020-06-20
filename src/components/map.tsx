@@ -9,7 +9,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 export default class Map extends Component {
   private map;
   private maps;
-  private initialized: boolean = false;
 
   renderPolylines(positions: iPosition[]) {
     if (this.map && this.maps) {
@@ -17,26 +16,10 @@ export default class Map extends Component {
         path: positions,
         geodesic: false,
         strokeColor: "#FF9F32",
-        strokeOpacity: 0.7,
+        strokeOpacity: 0.8,
         strokeWeight: 5,
       });
       line.setMap(this.map);
-
-      this.fitBounds(positions, this.map, this.maps);
-    }
-  }
-
-  fitBounds(positions: iPosition[], map, maps) {
-    if (!this.initialized) {
-      this.initialized = true;
-      var bounds = new maps.LatLngBounds();
-
-      for (let position of positions) {
-        bounds.extend(new maps.LatLng(position.lat, position.lng));
-      }
-
-      debugger;
-      map.fitBounds(bounds);
     }
   }
 
@@ -63,7 +46,7 @@ export default class Map extends Component {
           }}
         >
           {this.renderISSPositions(context.positions)}
-          {/*this.renderPolylines(context.positions)*/}
+          {this.renderPolylines(context.positions)}
         </GoogleMapReact>
       </div>
     );

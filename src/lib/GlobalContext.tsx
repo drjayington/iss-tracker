@@ -24,8 +24,8 @@ export default class GlobalStateContextProvider extends Component<
     super(props);
 
     this.state = {
-      current: { lat: 59.95, lng: 30.33, timestamp: 10 },
-      zoom: 11,
+      current: undefined,
+      zoom: 7,
       positions: [],
     };
 
@@ -64,14 +64,25 @@ export default class GlobalStateContextProvider extends Component<
         timestamp >
           this.state.positions[this.state.positions.length - 1].timestamp;
       if (positionIsNew) {
-        const newPosition: iPosition = {
-          lat: iss_position.latitude,
-          lng: iss_position.longitude,
-          timestamp: timestamp,
-        };
+        try {
+          const newPosition: iPosition = {
+            lat: Number.parseFloat(iss_position.latitude),
+            lng: Number.parseFloat(iss_position.longitude),
+            timestamp: timestamp,
+          };
 
-        // please note that data must be kept immutable in react (eg required for reconciliation/ re-rendering.)
-        this.setState({ positions: [...this.state.positions, newPosition] });
+          // please note that data must be kept immutable in react (eg required for reconciliation/ re-rendering.)
+          this.setState({
+            positions: [...this.state.positions, newPosition],
+            current: newPosition,
+          });
+        } catch {
+          console.error("failed to track ISS position", {
+            message,
+            timestamp,
+            iss_position,
+          });
+        }
       }
     }
   }
