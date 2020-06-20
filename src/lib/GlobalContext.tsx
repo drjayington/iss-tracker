@@ -60,7 +60,7 @@ export default class GlobalStateContextProvider extends Component<
       iss_position.longitude;
     if (jsonIsValid) {
       const positionIsNew: boolean =
-        this.state.positions.length == 0 ||
+        this.state.positions.length === 0 ||
         timestamp >
           this.state.positions[this.state.positions.length - 1].timestamp;
       if (positionIsNew) {

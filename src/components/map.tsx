@@ -3,6 +3,7 @@ import GoogleMapReact from "google-map-react";
 import { GlobalStateContext, IGlobalState } from "./../lib/GlobalContext";
 import ISSPosition from "./ISSPosition";
 import iPosition from "../interfaces/iPosition";
+import "./map.scss";
 
 export default class Map extends Component {
   markers: iPosition[] = [
@@ -45,7 +46,7 @@ export default class Map extends Component {
     return (
       <GlobalStateContext.Consumer>
         {(context: IGlobalState) => (
-          <div style={{ height: "100vh", width: "100%" }}>
+          <div className="map">
             <GoogleMapReact
               bootstrapURLKeys={{ key: "" }}
               defaultCenter={{
@@ -53,6 +54,7 @@ export default class Map extends Component {
                 lng: context.current.lng,
               }}
               defaultZoom={context.zoom}
+              yesIWantToUseGoogleMapApiInternals={true}
               onGoogleApiLoaded={({ map, maps }) =>
                 this.renderPolylines(map, maps)
               }
