@@ -4,6 +4,7 @@ import GlobalStateContextProvider from "./lib/GlobalContext";
 import "./App.scss";
 import iss from "./resources/iss.jpg";
 
+/* The root of the application */
 export default function App() {
   return (
     <GlobalStateContextProvider>

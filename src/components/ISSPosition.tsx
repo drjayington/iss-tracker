@@ -8,6 +8,7 @@ interface ISSPositionProps {
   isCurrent: boolean;
 }
 
+/* position marker component */
 export default class ISSPosition extends Component<ISSPositionProps> {
   render() {
     const { isCurrent } = this.props;

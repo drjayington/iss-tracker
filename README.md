@@ -16,7 +16,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `notes`
 
-The google map api key(I dont want to be charged) has not been used so errors + water markers will be shown.
+The google map api key has not been used(I dont want to be charged) so ...
+a warning pop up is displayed + There are some errors in the console not been used so errors + water markers will be shown.
 
 The position of ISS is polled once every 5.5 seconds (roughly the value recommend by the API), so try leaving the app running for a little while to see multiple markers
 

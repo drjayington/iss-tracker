@@ -6,14 +6,17 @@ import iPosition from "../interfaces/iPosition";
 import "./map.scss";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+/* google map component */
 export default class Map extends Component {
   private map;
   private maps;
 
-  renderPolylines(positions: iPosition[]) {
+  renderPolylines(current: iPosition, positions: iPosition[]) {
     if (this.map && this.maps) {
+      const allPosition: iPosition[] = [...positions, current];
+
       let line = new this.maps.Polyline({
-        path: positions,
+        path: allPosition,
         geodesic: false,
         strokeColor: "#FF9F32",
         strokeOpacity: 0.8,
@@ -30,7 +33,7 @@ export default class Map extends Component {
           key={pos.lat}
           lat={pos.lat}
           lng={pos.lng}
-          isCurrent={true}
+          isCurrent={false}
         />
       );
     });
@@ -53,7 +56,13 @@ export default class Map extends Component {
           }}
         >
           {this.renderISSPositions(context.positions)}
-          {this.renderPolylines(context.positions)}
+          {this.renderPolylines(context.current, context.positions)}
+          <ISSPosition
+            key={context.current.lat}
+            lat={context.current.lat}
+            lng={context.current.lng}
+            isCurrent={true}
+          />
         </GoogleMapReact>
       </div>
     );

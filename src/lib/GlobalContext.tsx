@@ -70,12 +70,7 @@ export default class GlobalStateContextProvider extends Component<
             lng: Number.parseFloat(iss_position.longitude),
             timestamp: timestamp,
           };
-
-          // please note that data must be kept immutable in react (eg required for reconciliation/ re-rendering.)
-          this.setState({
-            positions: [...this.state.positions, newPosition],
-            current: newPosition,
-          });
+          this.updateState(newPosition);
         } catch {
           console.error("failed to track ISS position", {
             message,
@@ -84,6 +79,18 @@ export default class GlobalStateContextProvider extends Component<
           });
         }
       }
+    }
+  }
+
+  private updateState(newPosition: iPosition) {
+    // please note that data must be kept immutable in react (eg required for reconciliation/ re-rendering.)
+    if (this.state.current) {
+      this.setState({
+        positions: [...this.state.positions, this.state.current],
+        current: newPosition,
+      });
+    } else {
+      this.setState({ current: newPosition });
     }
   }
 
