@@ -25,7 +25,14 @@ export default class Map extends Component {
 
   renderISSPositions = (positions: iPosition[]) => {
     return positions.map((pos) => {
-      return <ISSPosition key={pos.lat} lat={pos.lat} lng={pos.lng} />;
+      return (
+        <ISSPosition
+          key={pos.lat}
+          lat={pos.lat}
+          lng={pos.lng}
+          isCurrent={true}
+        />
+      );
     });
   };
 
