@@ -4,64 +4,86 @@ import { GlobalStateContext, IGlobalState } from "./../lib/GlobalContext";
 import ISSPosition from "./ISSPosition";
 import iPosition from "../interfaces/iPosition";
 import "./map.scss";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default class Map extends Component {
-  markers: iPosition[] = [
-    { lat: 59.955413, lng: 30.337844, timestamp: 0 },
-    { lat: 59.965563, lng: 30.337844, timestamp: 1 },
-    { lat: 59.975663, lng: 30.337844, timestamp: 2 },
-    { lat: 59.985763, lng: 30.337844, timestamp: 3 },
-    { lat: 59.995763, lng: 30.337844, timestamp: 4 },
-    { lat: 60, lng: 30.387844, timestamp: 5 },
-  ];
+  private map;
+  private maps;
+  private initialized: boolean = false;
 
-  renderPolylines(map, maps) {
-    let nonGeodesicPolyline = new maps.Polyline({
-      path: this.markers,
-      geodesic: false,
-      strokeColor: "#FF9F32",
-      strokeOpacity: 0.7,
-      strokeWeight: 5,
-    });
-    nonGeodesicPolyline.setMap(map);
+  renderPolylines(positions: iPosition[]) {
+    if (this.map && this.maps) {
+      let line = new this.maps.Polyline({
+        path: positions,
+        geodesic: false,
+        strokeColor: "#FF9F32",
+        strokeOpacity: 0.7,
+        strokeWeight: 5,
+      });
+      line.setMap(this.map);
 
-    this.fitBounds(this.markers, map, maps);
-  }
-
-  fitBounds(markers, map, maps) {
-    var bounds = new maps.LatLngBounds();
-    for (let marker of markers) {
-      bounds.extend(new maps.LatLng(marker.lat, marker.lng));
+      this.fitBounds(positions, this.map, this.maps);
     }
-    map.fitBounds(bounds);
   }
 
-  ISSPositions = (positions: iPosition[]) => {
+  fitBounds(positions: iPosition[], map, maps) {
+    if (!this.initialized) {
+      this.initialized = true;
+      var bounds = new maps.LatLngBounds();
+
+      for (let position of positions) {
+        bounds.extend(new maps.LatLng(position.lat, position.lng));
+      }
+
+      debugger;
+      map.fitBounds(bounds);
+    }
+  }
+
+  renderISSPositions = (positions: iPosition[]) => {
     return positions.map((pos) => {
       return <ISSPosition key={pos.lat} lat={pos.lat} lng={pos.lng} />;
     });
   };
 
+  renderMap(context: IGlobalState) {
+    return (
+      <div className="map">
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: "" }}
+          defaultCenter={{
+            lat: context.current.lat,
+            lng: context.current.lng,
+          }}
+          defaultZoom={context.zoom}
+          yesIWantToUseGoogleMapApiInternals={true}
+          onGoogleApiLoaded={({ map, maps }) => {
+            this.map = map;
+            this.maps = maps;
+          }}
+        >
+          {this.renderISSPositions(context.positions)}
+          {/*this.renderPolylines(context.positions)*/}
+        </GoogleMapReact>
+      </div>
+    );
+  }
+
+  renderLoading() {
+    return (
+      <div className="loading">
+        <CircularProgress />
+      </div>
+    );
+  }
+
   render() {
     return (
       <GlobalStateContext.Consumer>
         {(context: IGlobalState) => (
-          <div className="map">
-            <GoogleMapReact
-              bootstrapURLKeys={{ key: "" }}
-              defaultCenter={{
-                lat: context.current.lat,
-                lng: context.current.lng,
-              }}
-              defaultZoom={context.zoom}
-              yesIWantToUseGoogleMapApiInternals={true}
-              onGoogleApiLoaded={({ map, maps }) =>
-                this.renderPolylines(map, maps)
-              }
-            >
-              {this.ISSPositions(context.positions)}
-            </GoogleMapReact>
-          </div>
+          <>
+            {context.current ? this.renderMap(context) : this.renderLoading()}
+          </>
         )}
       </GlobalStateContext.Consumer>
     );

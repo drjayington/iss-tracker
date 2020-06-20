@@ -2,6 +2,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: black;
 
   .header {
     background-color: #000008;
@@ -14,10 +15,10 @@
 
       &::before {
         @media only screen and (max-width: 700px) {
-          content: "ISS Tracker";
+          content: "ISS";
         }
         @media only screen and (min-width: 701px) {
-          content: "International Space Station Tracker";
+          content: "International Space Station";
         }
       }
     }
