@@ -6,10 +6,20 @@
   .header {
     background-color: #000008;
     display: flex;
+    align-items: center;
 
     h1 {
-      text-align: center;
       color: white;
+      margin-left: 20px;
+
+      &::before {
+        @media only screen and (max-width: 700px) {
+          content: "ISS Tracker";
+        }
+        @media only screen and (min-width: 701px) {
+          content: "International Space Station Tracker";
+        }
+      }
     }
   }
 }

@@ -10,7 +10,7 @@ export default function App() {
       <div className="app">
         <div className="header">
           <img src={iss} alt="International Space Station" />
-          <h1>International Space Station Tracker</h1>
+          <h1></h1>
         </div>
         <Map />
       </div>
