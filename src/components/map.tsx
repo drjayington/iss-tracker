@@ -37,7 +37,6 @@ export default class Map extends Component {
   }
 
   ISSPositions = (positions: iPosition[]) => {
-    //this.markers = [...this.markers, ...positions];
     return positions.map((pos) => {
       return <ISSPosition key={pos.lat} lat={pos.lat} lng={pos.lng} />;
     });

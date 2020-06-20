@@ -2,4 +2,14 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+
+  .header {
+    background-color: #000008;
+    display: flex;
+
+    h1 {
+      text-align: center;
+      color: white;
+    }
+  }
 }
