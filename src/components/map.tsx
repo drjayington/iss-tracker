@@ -1,15 +1,10 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
-import { GlobalStateContext } from "./../lib/GlobalContext";
+import { GlobalStateContext, IGlobalState } from "./../lib/GlobalContext";
 import ISSPosition from "./ISSPosition";
 import iPosition from "../interfaces/iPosition";
 
-type MapProps = {
-  center: any;
-  zoom: any;
-};
-
-export default class Map extends Component<MapProps> {
+export default class Map extends Component {
   markers: iPosition[] = [
     { lat: 59.955413, lng: 30.337844, timestamp: 0 },
     { lat: 59.965563, lng: 30.337844, timestamp: 1 },
@@ -20,13 +15,12 @@ export default class Map extends Component<MapProps> {
   ];
 
   renderPolylines(map, maps) {
-    // Example of rendering non geodesic polyline (straight line)
     let nonGeodesicPolyline = new maps.Polyline({
       path: this.markers,
       geodesic: false,
       strokeColor: "#FF9F32",
       strokeOpacity: 0.7,
-      strokeWeight: 3,
+      strokeWeight: 5,
     });
     nonGeodesicPolyline.setMap(map);
 
@@ -48,16 +42,17 @@ export default class Map extends Component<MapProps> {
   };
 
   render() {
-    const { center, zoom } = this.props;
-
     return (
       <GlobalStateContext.Consumer>
-        {(context: any) => (
+        {(context: IGlobalState) => (
           <div style={{ height: "100vh", width: "100%" }}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: "" }}
-              defaultCenter={center}
-              defaultZoom={zoom}
+              defaultCenter={{
+                lat: context.current.lat,
+                lng: context.current.lng,
+              }}
+              defaultZoom={context.zoom}
               onGoogleApiLoaded={({ map, maps }) =>
                 this.renderPolylines(map, maps)
               }

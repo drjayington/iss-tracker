@@ -5,13 +5,8 @@ import iPosition from "../interfaces/iPosition";
 export const GlobalStateContext = createContext<IGlobalState | null>(null);
 
 export interface IGlobalState {
-  current: {
-    center: {
-      lat: number;
-      lng: number;
-    };
-    zoom: number;
-  };
+  current: iPosition;
+  zoom: number;
   positions: iPosition[];
 }
 
@@ -29,13 +24,8 @@ export default class GlobalStateContextProvider extends Component<
     super(props);
 
     this.state = {
-      current: {
-        center: {
-          lat: 79.95,
-          lng: 50.33,
-        },
-        zoom: 11,
-      },
+      current: { lat: 59.95, lng: 30.33, timestamp: 10 },
+      zoom: 11,
       positions: [],
     };
 
