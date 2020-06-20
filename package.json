@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "iss_tracker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,7 +9,8 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "sass": "^1.26.8",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -35,8 +36,7 @@
       "not safari"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version"
+      "last 1 chrome version"
     ]
   }
 }

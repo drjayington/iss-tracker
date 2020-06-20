@@ -30,7 +30,7 @@ export default class Map extends Component {
     return positions.map((pos) => {
       return (
         <ISSPosition
-          key={pos.lat}
+          key={pos.id}
           lat={pos.lat}
           lng={pos.lng}
           isCurrent={false}
@@ -58,7 +58,7 @@ export default class Map extends Component {
           {this.renderISSPositions(context.positions)}
           {this.renderPolylines(context.current, context.positions)}
           <ISSPosition
-            key={context.current.lat}
+            key={context.current.id}
             lat={context.current.lat}
             lng={context.current.lng}
             isCurrent={true}

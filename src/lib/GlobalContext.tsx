@@ -1,6 +1,7 @@
 import React, { createContext, Component } from "react";
 import TransportService from "./TransportService";
 import iPosition from "../interfaces/iPosition";
+import { v1 as uuidv1 } from "uuid";
 
 export const GlobalStateContext = createContext<IGlobalState | null>(null);
 
@@ -69,6 +70,7 @@ export default class GlobalStateContextProvider extends Component<
             lat: Number.parseFloat(iss_position.latitude),
             lng: Number.parseFloat(iss_position.longitude),
             timestamp: timestamp,
+            id: uuidv1(),
           };
           this.updateState(newPosition);
         } catch {
