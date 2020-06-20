@@ -36,8 +36,9 @@ export default class Map extends Component {
     map.fitBounds(bounds);
   }
 
-  ISSPositions = () => {
-    return this.markers.map((pos) => {
+  ISSPositions = (positions: iPosition[]) => {
+    //this.markers = [...this.markers, ...positions];
+    return positions.map((pos) => {
       return <ISSPosition key={pos.lat} lat={pos.lat} lng={pos.lng} />;
     });
   };
@@ -59,7 +60,7 @@ export default class Map extends Component {
                 this.renderPolylines(map, maps)
               }
             >
-              {this.ISSPositions()}
+              {this.ISSPositions(context.positions)}
             </GoogleMapReact>
           </div>
         )}
