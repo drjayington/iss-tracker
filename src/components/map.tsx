@@ -2,25 +2,21 @@ import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import { GlobalStateContext } from "./../lib/GlobalContext";
 import ISSPosition from "./ISSPosition";
+import iPosition from "../interfaces/iPosition";
 
 type MapProps = {
   center: any;
   zoom: any;
 };
 
-interface latLng {
-  lat: number;
-  lng: number;
-}
-
 export default class Map extends Component<MapProps> {
-  markers: latLng[] = [
-    { lat: 59.955413, lng: 30.337844 },
-    { lat: 59.965563, lng: 30.337844 },
-    { lat: 59.975663, lng: 30.337844 },
-    { lat: 59.985763, lng: 30.337844 },
-    { lat: 59.995763, lng: 30.337844 },
-    { lat: 60, lng: 30.387844 },
+  markers: iPosition[] = [
+    { lat: 59.955413, lng: 30.337844, timestamp: 0 },
+    { lat: 59.965563, lng: 30.337844, timestamp: 1 },
+    { lat: 59.975663, lng: 30.337844, timestamp: 2 },
+    { lat: 59.985763, lng: 30.337844, timestamp: 3 },
+    { lat: 59.995763, lng: 30.337844, timestamp: 4 },
+    { lat: 60, lng: 30.387844, timestamp: 5 },
   ];
 
   renderPolylines(map, maps) {
