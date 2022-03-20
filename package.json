@@ -23,7 +23,10 @@
     "@types/react-dom": "^16.9.0"
   },
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,8 +35,7 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all",
-      "not safari"
+      "not op_mini all"
     ],
     "development": [
       "last 1 chrome version"
